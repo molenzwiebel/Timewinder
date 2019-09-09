@@ -24,16 +24,9 @@
 
 <script lang="ts">
     import { Component, Vue } from "vue-property-decorator";
-
-    interface SearchResult {
-        ok: boolean;
-        summoner: {
-            acctId: number
-        };
-    }
+    import { SearchResult } from "@/types";
 
     const DEFAULT_SEASON = 9;
-    const DEFAULT_MODE = "CLASSIC";
 
     @Component
     export default class LandingSearchForm extends Vue {
@@ -55,7 +48,7 @@
                 if (!data.ok) {
                     this.errored = true;
                 } else {
-                    this.$router.push(`/${this.region}/${data.summoner.acctId}/${DEFAULT_SEASON}/${DEFAULT_MODE}`);
+                    this.$router.push(`/${this.region}/${data.summoner.acctId}/${DEFAULT_SEASON}`);
                 }
             } catch {
                 this.errored = true;

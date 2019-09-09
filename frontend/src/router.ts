@@ -13,7 +13,7 @@ export default new Router({
         path: "/",
         component: Landing
     }, {
-        path: "/:region/:accountId/:season/:gameMode/:champion?",
+        path: "/:region/:accountId/:season/:champion?",
         component: Stats
     }, {
         path: "*",
