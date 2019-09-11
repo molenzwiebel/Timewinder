@@ -19,7 +19,12 @@ export interface PlayerStats {
 
 export interface PlayerStatsResult {
     ok: boolean;
+    account: Account;
     stats: PlayerStats;
+}
+
+export interface Account {
+    summoner: Summoner;
 }
 
 export interface Summoner {

@@ -37,7 +37,7 @@
 
         championData: ChampionData = <any>null;
         stats: PlayerStats = <any>null;
-        summoner: Summoner = { acctId: 1, name: "Text" }; // TODO
+        summoner: Summoner = <any>null;
 
         async mounted() {
             this.loadData();
@@ -60,10 +60,9 @@
             const { region, accountId, season } = this.$route.params;
 
             try {
-                const [data, championData,/*, summoner*/]: [PlayerStatsResult, ChampionData/*, SearchResult*/] = <any>await Promise.all([
+                const [data, championData]: [PlayerStatsResult, ChampionData] = <any>await Promise.all([
                     fetch(`http://localhost:52001/api/v1/stats/${region.toUpperCase()}/${accountId}/CLASSIC/${season}`).then(x => x.json()),
                     dataPromise
-                    // fetch(`http://localhost:52001/api/v1/summoner/${region.toUpperCase()}/${accountId}/${gameMode}/${season}`).then(x => x.json()),
                 ]);
 
                 if (!data.ok) {
@@ -71,6 +70,7 @@
                 } else {
                     this.championData = championData;
                     this.stats = data.stats;
+                    this.summoner = data.account.summoner;
                 }
             } catch {
                 this.errored = true;

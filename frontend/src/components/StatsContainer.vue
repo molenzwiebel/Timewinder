@@ -5,7 +5,6 @@
         <div class="body">
             <div class="tabs">
                 <div class="tab active">Stats</div>
-                <div class="tab">Graphs</div>
                 <div class="spacing"></div>
 
                 <select class="select" v-model="season">
@@ -13,13 +12,16 @@
                 </select>
             </div>
 
-            <div class="content-stats">
+            <!-- Show error if there are no stats. -->
+            <no-stats v-if="!hasStats" :summoner="summoner" />
+
+            <div class="content-stats" v-if="hasStats">
                 <champion v-if="!isTotalStats" :champion-id="championId" :champion-data="championData" />
                 <top-stats-block :stats="championStats" />
                 <main-stats-block :stats="championStats" :global="isTotalStats" />
             </div>
 
-            <div class="champ-select">
+            <div class="champ-select" v-if="hasStats">
                 <div class="header">
                     <div class="count">Wins with <b>3/94</b> Champions.</div>
                     <div class="title">Filter By Champion</div>
@@ -41,9 +43,10 @@
     import Champion from "@/components/stats/Champion.vue";
     import { ChampionData } from "@/ddragon";
     import ChampionPicker from "@/components/stats/ChampionPicker.vue";
+    import NoStats from "@/components/stats/NoStats.vue";
 
     @Component({
-        components: { ChampionPicker, Champion, MainStatsBlock, TopNavbar, TopStatsBlock }
+        components: { NoStats, ChampionPicker, Champion, MainStatsBlock, TopNavbar, TopStatsBlock }
     })
     export default class StatsContainer extends Vue {
         @Prop()
@@ -54,6 +57,13 @@
 
         @Prop()
         championData!: ChampionData;
+
+        /**
+         * @returns whether or not there are any stats recorded for the current settings
+         */
+        get hasStats() {
+            return !!this.stats.lifetimeStatistics.length;
+        }
 
         /**
          * @returns whether or not we are currently showing the global stats (not champion specific)
