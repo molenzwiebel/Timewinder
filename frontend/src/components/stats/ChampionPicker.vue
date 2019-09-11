@@ -57,6 +57,7 @@
         .champ
             display inline-block
             margin 1px 1px
+            cursor pointer
 
         .champ.active
             background-color #80CFFF

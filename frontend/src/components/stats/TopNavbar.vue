@@ -2,20 +2,20 @@
     <div class="topnav">
         <div class="top-tabs">
             <div class="profile">{{ name }}</div>
-            <div class="ranked">Ranked Teams</div>
-            <button class="create-ranked blue-button">Create a Ranked Team</button>
+            <div class="ranked" @click="openPage('https://na.leagueoflegends.com/en/featured/clash')">Ranked Teams</div>
+            <button class="create-ranked blue-button" @click="openPage('https://na.leagueoflegends.com/en/featured/clash')">Create a Ranked Team</button>
         </div>
 
         <div class="tabs">
-            <div class="tab">Profile</div>
+            <div class="tab" @click="openPage(opggUrl)">Profile</div>
             <div class="tab active">Ranked Stats</div>
-            <div class="tab">Match History</div>
-            <div class="tab">Champions</div>
-            <div class="tab">Runes</div>
-            <div class="tab">Masteries</div>
-            <div class="tab">Spells</div>
-            <div class="tab">Achievements</div>
-            <input type="text" placeholder="Find Summoner" class="input">
+            <div class="tab" @click="openPage('https://matchhistory.na.leagueoflegends.com/')">Match History</div>
+            <div class="tab" @click="openPage('https://na.leagueoflegends.com/en/game-info/champions/')">Champions</div>
+            <div class="tab" @click="openPage('https://na.leagueoflegends.com/en/featured/preseason-update')">Runes</div>
+            <div class="tab" @click="openPage('https://na.leagueoflegends.com/en/news/game-updates/features/legacy-client-now-retired')">Masteries</div>
+            <div class="tab" @click="openPage('https://na.leagueoflegends.com/en/game-info/summoners/spells/')">Spells</div>
+            <div class="tab" @click="openPage('https://nexus.leagueoflegends.com/en-us/2019/08/dev-exploring-eternals/')">Achievements</div>
+            <input type="text" placeholder="Find Summoner" class="input" v-model="searchTerm" @keyup.enter="openIndexWithText">
         </div>
     </div>
 </template>
@@ -27,6 +27,20 @@
     export default class TopNavbar extends Vue {
         @Prop()
         name!: string;
+
+        searchTerm = "";
+
+        get opggUrl() {
+            return `https://${this.$route.params.region.toLowerCase()}.op.gg/summoner/userName=${encodeURIComponent(this.name)}`;
+        }
+
+        openIndexWithText() {
+            this.$router.push("/?name=" + encodeURIComponent(this.searchTerm));
+        }
+
+        openPage(page: string) {
+            window.location.assign(page);
+        }
     }
 </script>
 
@@ -70,6 +84,10 @@
                 align-items center
                 justify-content center
 
+                &:hover
+                    background linear-gradient(to bottom, #F0ECE6, #E1D4A8)
+                    cursor pointer
+
             .create-ranked
                 margin-left 10px
                 margin-bottom 6px
@@ -101,6 +119,11 @@
                 justify-content center
                 font-size 0.9em
                 color #4B4024
+                transition 0.2s ease
+                cursor pointer
+
+            .tab:hover
+                background linear-gradient(to bottom, #FDEECA, #F1E1B4 90%, #FFEEC4)
 
             .tab.active
                 background linear-gradient(to bottom, #FDEECA, #F1E1B4 90%, #FFEEC4)

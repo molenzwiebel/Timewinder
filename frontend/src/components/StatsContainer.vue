@@ -152,6 +152,16 @@
         height 684px
         font-family FrizQuadrata
 
+    .select
+        border 1px solid #6B6545
+        border-radius 3px
+        font-size 0.8em
+        font-weight bold
+        font-family FrizQuadrata
+        padding 2px 4px
+        padding-right 8px
+        background-color linear-gradient(to bottom, #F9F3DE, #DAD2B0)
+
     .body
         position absolute
         left 40px
@@ -243,4 +253,8 @@
         color white
         font-family FrizQuadrata
         font-size 0.8em
+        cursor pointer
+
+        &:hover
+            background linear-gradient(to bottom, #4a6cb1, #29548e 10%, #19345d, #0c2245 80%, #2158A1)
 </style>

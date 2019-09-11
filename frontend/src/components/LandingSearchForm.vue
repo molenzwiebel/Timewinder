@@ -36,6 +36,10 @@
         searching = false;
         errored = false;
 
+        mounted() {
+            this.name = this.$route.query.name as string || "";
+        }
+
         async search() {
             if (!this.name) return;
             if (this.searching) return;
