@@ -100,10 +100,10 @@ async function querySummoner(region: string, name: string): Promise<any | null> 
             return res.status(400).json({ ok: false, message: "Invalid account ID or season." });
         }
 
-        const stats = await queryStats(req.params.region, req.params.accountId, req.params.gameMode, season);
-        if (!stats) return res.status(404).json({ ok: false, message: "Unknown summoner or no stats recorded." });
+        const data = await queryStats(req.params.region, req.params.accountId, req.params.gameMode, season);
+        if (!data) return res.status(404).json({ ok: false, message: "Unknown summoner or no stats recorded." });
 
-        return res.json({ ok: true, stats });
+        return res.json({ ok: true, stats: data.stats, account: data.account });
     });
 
     console.log("[+] Listening on 0.0.0.0:" + PORT + "... ^C to exit.");
