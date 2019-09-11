@@ -88,7 +88,7 @@
         left 0
         right 0
         bottom 0
-        background-color #0e0e0e
+        background-color #1b1b1b
         display flex
         align-items center
         justify-content center

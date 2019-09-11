@@ -7,7 +7,7 @@
         </div>
 
         <div class="message">
-            {{ summoner.name }} does not seem to have any ranked games played during this season. Try selecting a different season or searching for someone else.
+            {{ summoner.name }} does not seem to have any ranked games played during season {{ season }}. Try selecting a different season or searching for someone else.
         </div>
     </div>
 </template>
@@ -20,6 +20,10 @@
     export default class NoStats extends Vue {
         @Prop()
         summoner!: Summoner;
+
+        get season() {
+            return this.$route.params.season;
+        }
     }
 </script>
 

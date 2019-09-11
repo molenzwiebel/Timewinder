@@ -12,6 +12,10 @@
             <landing-search-form />
         </div>
 
+        <div class="explanation">
+            Timewinder shows you all your ranked stats, just like the old client used to. See your KDA, win rate, damage distribution and more, with data ranging back all the way to season 1. Experience a dose of nostalgia while seeing your stats, for absolutely free!
+        </div>
+
         <div class="bottom-stats">
             <img src="../assets/stats-preview.png" />
         </div>
@@ -47,7 +51,7 @@
         left 0
         right 0
         bottom 0
-        background-color black
+        background-color #1b1b1b
         overflow hidden
 
         .logo-and-search
@@ -83,6 +87,17 @@
                     font-family 'Open Sans', sans-serif
                     font-size 1.1em
                     color #fafafa
+
+        .explanation
+            font-family 'Open Sans', sans-serif
+            position absolute
+            bottom calc(35vh + 30px)
+            margin 0 auto
+            left 50%
+            max-width 700px
+            text-align center
+            transform translateX(-50%)
+            color #9c9c9c
 
         .bottom-stats
             position absolute

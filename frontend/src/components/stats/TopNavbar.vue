@@ -35,7 +35,7 @@
         }
 
         openIndexWithText() {
-            this.$router.push("/?name=" + encodeURIComponent(this.searchTerm));
+            this.$router.push("/?name=" + encodeURIComponent(this.searchTerm) + "&region=" + this.$route.params.region.toLowerCase());
         }
 
         openPage(page: string) {

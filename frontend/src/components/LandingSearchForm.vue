@@ -38,6 +38,7 @@
 
         mounted() {
             this.name = this.$route.query.name as string || "";
+            this.region = this.$route.query.region as string || "euw";
         }
 
         async search() {

@@ -1,35 +1,43 @@
 <template>
-    <div class="parchment">
-        <top-navbar :name="summoner.name" />
+    <div class="container">
+        <div class="parchment">
+            <top-navbar :name="summoner.name" />
 
-        <div class="body">
-            <div class="tabs">
-                <div class="tab active">Stats</div>
-                <div class="spacing"></div>
+            <div class="body">
+                <div class="tabs">
+                    <div class="tab active">Stats</div>
+                    <div class="spacing"></div>
 
-                <select class="select" v-model="season">
-                    <option :value="(i + 1).toString()" v-for="(_, i) in 9">Season {{ i + 1 }}</option>
-                </select>
-            </div>
-
-            <!-- Show error if there are no stats. -->
-            <no-stats v-if="!hasStats" :summoner="summoner" />
-
-            <div class="content-stats" v-if="hasStats">
-                <champion v-if="!isTotalStats" :champion-id="championId" :champion-data="championData" />
-                <top-stats-block :stats="championStats" />
-                <main-stats-block :stats="championStats" :global="isTotalStats" />
-            </div>
-
-            <div class="champ-select" v-if="hasStats">
-                <div class="header">
-                    <div class="count">Wins with <b>3/94</b> Champions.</div>
-                    <div class="title">Filter By Champion</div>
-                    <div class="clear"><button @click="clearChampion" class="blue-button">Clear Filter</button></div>
+                    <select class="select" v-model="season">
+                        <option :value="(i + 1).toString()" v-for="(_, i) in 9">Season {{ i + 1 }}</option>
+                    </select>
                 </div>
 
-                <champion-picker :champions="champions" :champion-data="championData" />
+                <!-- Show error if there are no stats. -->
+                <no-stats v-if="!hasStats" :summoner="summoner" />
+
+                <div class="content-stats" v-if="hasStats">
+                    <champion v-if="!isTotalStats" :champion-id="championId" :champion-data="championData" />
+                    <top-stats-block :stats="championStats" />
+                    <main-stats-block :stats="championStats" :global="isTotalStats" />
+                </div>
+
+                <div class="champ-select" v-if="hasStats">
+                    <div class="header">
+                        <div class="count">Wins with <b>{{ numWins }}/{{ Object.values(championData.data).length }}</b> Champions.</div>
+                        <div class="title">Filter By Champion</div>
+                        <div class="clear"><button @click="clearChampion" class="blue-button">Clear Filter</button></div>
+                    </div>
+
+                    <champion-picker :champions="champions" :champion-data="championData" />
+                </div>
             </div>
+        </div>
+
+        <div class="about">
+            Made with ❤ by <a href="https://github.com/molenzwiebel">molenzwiebel</a>.
+            · Check out the <a href="https://github.com/molenzwiebel/timewinder">source code!</a>
+            · Timewinder is not affiliated with Riot Games or League of Legends
         </div>
     </div>
 </template>
@@ -95,6 +103,15 @@
                 .map(x => x.championId)
                 .filter(x => x !== 0) // not the aggregate one
                 .filter((x, i, a) => a.indexOf(x) === i); // filter out duplicates
+        }
+
+        /**
+         * @returns the amount of champions the user had a win on
+         */
+        get numWins() {
+            return this.stats.lifetimeStatistics
+                .filter(x => x.statType === "TOTAL_CHAMPION_KILLS" && x.value > 0)
+                .length - 1; // global stat is one too
         }
 
         /**
@@ -243,6 +260,19 @@
                 .clear .blue-button
                     margin-left auto
                     width 100px
+
+    .about
+        position absolute
+        bottom 20px
+        left 50%
+        width 800px
+        transform translateX(-50%)
+        font-family 'Open Sans', sans-serif
+        color #6b6b6b
+        font-size 12px
+
+        & a
+            color #1e87f0
 
     .blue-button
         background linear-gradient(to bottom, #5594E3, #3878C8 10%, #265895, #0E3466 80%, #2158A1)
