@@ -1,4 +1,6 @@
-# frontend
+# Timewinder Frontend
+
+This is the frontend part of Timewinder. It is essentially a simple Vue CLI 3 app. See the commands below on how to use.
 
 ## Project setup
 ```
@@ -14,16 +16,3 @@ npm run serve
 ```
 npm run build
 ```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

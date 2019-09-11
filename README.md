@@ -2,7 +2,7 @@
 
 [![Discord](https://discordapp.com/api/guilds/249481856687407104/widget.png?style=shield)](https://discord.gg/bfxdsRC)
 
-# :clock: Timewinder
+# :rewind: Timewinder
 Get hit with a strong sense of nostalgia as you explore your ranked stats the way we used to see them in the stone age of League of Legends. Timewinder is an online site that features a clone of the old "Ranked Stats" tab from the League of Legends Adobe AIR client.
 
 # Screenshots
