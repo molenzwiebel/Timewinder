@@ -109,6 +109,12 @@ async function querySummoner(region: string, name: string): Promise<any | null> 
         return res.json({ ok: true, stats: data.stats, account: data.account });
     });
 
+    // Fall back to Vue on unknown route.
+    app.use((_, res) => {
+        res.setHeader("Content-Type", "text/html");
+        res.sendFile("../frontend/dist/index.html");
+    });
+
     console.log("[+] Listening on 0.0.0.0:" + PORT + "... ^C to exit.");
     app.listen(PORT);
 })();
