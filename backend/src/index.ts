@@ -82,6 +82,7 @@ async function querySummoner(region: string, name: string): Promise<any | null> 
 
     const app = express();
     app.use(cors());
+    app.use(express.static("../frontend/dist"));
 
     app.get("/api/v1/summoner/:region/:name", async (req, res) => {
         if (!verifyRegion(req, res)) return;

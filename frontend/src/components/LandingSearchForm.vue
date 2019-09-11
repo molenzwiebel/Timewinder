@@ -48,7 +48,7 @@
             this.errored = false;
 
             try {
-                const data: SearchResult = await fetch(`http://localhost:52001/api/v1/summoner/${this.region.toUpperCase()}/${encodeURIComponent(this.name)}`).then(x => x.json());
+                const data: SearchResult = await fetch(`/api/v1/summoner/${this.region.toUpperCase()}/${encodeURIComponent(this.name)}`).then(x => x.json());
                 if (!data.ok) {
                     this.errored = true;
                 } else {

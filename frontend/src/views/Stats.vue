@@ -61,7 +61,7 @@
 
             try {
                 const [data, championData]: [PlayerStatsResult, ChampionData] = <any>await Promise.all([
-                    fetch(`http://localhost:52001/api/v1/stats/${region.toUpperCase()}/${accountId}/CLASSIC/${season}`).then(x => x.json()),
+                    fetch(`/api/v1/stats/${region.toUpperCase()}/${accountId}/CLASSIC/${season}`).then(x => x.json()),
                     dataPromise
                 ]);
 
