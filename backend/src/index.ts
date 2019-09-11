@@ -1,6 +1,7 @@
 import * as express from "express";
 import * as cors from "cors";
 import * as Redis from "ioredis";
+import * as path from "path";
 import fetch from "node-fetch";
 
 const PORT = process.env.PORT || 52124;
@@ -112,7 +113,7 @@ async function querySummoner(region: string, name: string): Promise<any | null> 
     // Fall back to Vue on unknown route.
     app.use((_, res) => {
         res.setHeader("Content-Type", "text/html");
-        res.sendFile("../frontend/dist/index.html");
+        res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
     });
 
     console.log("[+] Listening on 0.0.0.0:" + PORT + "... ^C to exit.");
