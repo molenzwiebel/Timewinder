@@ -8,7 +8,6 @@
                 <option value="na">NA</option>
                 <option value="lan">LAN</option>
                 <option value="las">LAS</option>
-                <option value="jp">JP</option>
                 <option value="tr">TR</option>
                 <option value="br">BR</option>
                 <option value="ru">RU</option>

@@ -3,10 +3,10 @@ import * as cors from "cors";
 import * as Redis from "ioredis";
 import fetch from "node-fetch";
 
-const PORT = process.env.PORT || 52001;
+const PORT = process.env.PORT || 52124;
 const LCU_HOST = "http://localhost:52123";
-const REGIONS = ["EUW"];
-const GAMEMODES = ["CLASSIC", "ARAM"];
+const REGIONS = ["EUW", "EUNE", "OCE", "NA", "TR", "BR", "LAN", "LAS"];
+const GAMEMODES = ["CLASSIC"];
 
 const redis = new Redis({
     keyPrefix: "timewinder:"
@@ -67,6 +67,8 @@ async function querySummoner(region: string, name: string): Promise<any | null> 
 
         const text = await response.text();
         const json = JSON.parse(text.trim());
+        if (!json.acctId) return null; // sometimes upstream returns an empty object?
+
         await redis.setex(redisKey, 60 * 30, JSON.stringify(json)); // cache for 30m
 
         return json;
