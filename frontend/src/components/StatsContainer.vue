@@ -7,8 +7,9 @@
                 <div class="tab active">Stats</div>
                 <div class="tab">Graphs</div>
                 <div class="spacing"></div>
-                <select class="select">
-                    <option :selected="i === 8" v-for="(_, i) in 9">Season {{ i + 1 }}</option>
+
+                <select class="select" v-model="season">
+                    <option :value="(i + 1).toString()" v-for="(_, i) in 9">Season {{ i + 1 }}</option>
                 </select>
             </div>
 
@@ -86,9 +87,28 @@
                 .filter((x, i, a) => a.indexOf(x) === i); // filter out duplicates
         }
 
+        /**
+         * Clears the currently selected champion filter.
+         */
         clearChampion() {
             const { region, accountId, season } = this.$route.params;
             this.$router.replace(`/${region}/${accountId}/${season}`);
+        }
+
+        /**
+         * @returns the currently selected season, as a string
+         */
+        get season() {
+            return this.$route.params.season;
+        }
+
+        /**
+         * Sets the currently selected season. Works by replacing the route.
+         * This also resets the current filter.
+         */
+        set season(value: string) {
+            const { region, accountId } = this.$route.params;
+            this.$router.replace(`/${region}/${accountId}/${value}`);
         }
 
         private computeStatisticsFor(champId: number) {

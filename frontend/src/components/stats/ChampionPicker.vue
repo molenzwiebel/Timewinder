@@ -1,7 +1,7 @@
 <template>
     <div class="scroll">
-        <div @click="selectChampion(championId)" class="champ" :class="{ active: championId === selectedChampion }" v-for="championId in champions">
-            <img :src="'https://cdn.communitydragon.org/latest/champion/' + championId + '/square'">
+        <div @click="selectChampion(championId)" class="champ" :class="{ active: championId === selectedChampion }" v-for="championId in champions" :key="championId">
+            <img :src="getChampionIcon(championId)">
             <div class="name">{{ getChampionName(championId) }}</div>
         </div>
     </div>
@@ -24,6 +24,13 @@
             if (!champ) return "";
 
             return champ.name;
+        }
+
+        getChampionIcon(id: number) {
+            const champ = Object.values(this.championData.data).find(x => x.key === id + "");
+            if (!champ) return "";
+
+            return `https://ddragon.leagueoflegends.com/cdn/${this.championData.version}/img/champion/${champ.id}.png`;
         }
 
         selectChampion(id: number) {

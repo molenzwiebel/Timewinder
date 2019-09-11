@@ -1,9 +1,11 @@
 export interface ChampionData {
+    version: string;
     data: {
         [key: string]: {
             key: string; // actually the ID, but in string form. WTF riot?
             name: string;
             title: string;
+            id: string; // actually the key, ???????????
         }
     };
 }

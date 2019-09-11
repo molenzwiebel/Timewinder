@@ -1,6 +1,6 @@
 <template>
     <div class="champion">
-        <img :src="`https://cdn.communitydragon.org/latest/champion/${championId}/square`">
+        <img :src="`https://ddragon.leagueoflegends.com/cdn/${championData.version}/img/champion/${champion.id}.png`">
         <div class="aside">
             <span>{{ champion.name }}</span>
             <span>{{ champion.title }}</span>

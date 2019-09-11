@@ -1,13 +1,20 @@
 <template>
     <div class="stats">
-        <dancing-katarina v-if="loading" />
+        <!-- Display the first katarina on full screen. -->
+        <dancing-katarina v-if="(loading && !subsequentLoad) || !stats" />
+
+        <!-- Do an overlay for subsequent ones. -->
+        <div class="subsequent-load-indicator" v-else-if="loading && subsequentLoad">
+            <dancing-katarina />
+        </div>
+
         <stat-error v-else-if="errored" />
-        <stats-container v-else :stats="stats" :summoner="summoner" :champion-data="championData" />
+        <stats-container v-if="stats" :stats="stats" :summoner="summoner" :champion-data="championData" />
     </div>
 </template>
 
 <script lang="ts">
-    import { Component, Vue } from "vue-property-decorator";
+    import { Component, Vue, Watch } from "vue-property-decorator";
 
     import DancingKatarina from "@/components/DancingKatarina.vue";
     import StatError from "@/components/StatError.vue";
@@ -24,7 +31,8 @@
         },
     })
     export default class Stats extends Vue {
-        loading = true;
+        subsequentLoad = false;
+        loading = false;
         errored = false;
 
         championData: ChampionData = <any>null;
@@ -32,6 +40,23 @@
         summoner: Summoner = { acctId: 1, name: "Text" }; // TODO
 
         async mounted() {
+            this.loadData();
+        }
+
+        @Watch("$route.params.season")
+        handleSeasonChange() {
+            this.loadData();
+        }
+
+        private async loadData() {
+            if (this.loading) return;
+            if (this.stats) {
+                this.subsequentLoad = true;
+            }
+
+            this.loading = true;
+            this.errored = false;
+
             const { region, accountId, season } = this.$route.params;
 
             try {
@@ -67,4 +92,16 @@
         display flex
         align-items center
         justify-content center
+
+        .subsequent-load-indicator
+            position absolute
+            top 0
+            left 0
+            right 0
+            bottom 0
+            background-color rgba(0, 0, 0, 0.6)
+            display flex
+            align-items center
+            justify-content center
+            z-index 100
 </style>
